@@ -1,168 +1,157 @@
-/*                                 ___ _____ 
-  ___  _ __ ___   ___  __ _  __ _ / _ \___  |
- / _ \| '_ ` _ \ / _ \/ _` |/ _` | | | | / / 
-| (_) | | | | | |  __/ (_| | (_| | |_| |/ /  
- \___/|_| |_| |_|\___|\__, |\__,_|\___//_/   
-                      |___/            
-*/
-// Getting better at it ! ! !
-#include <bits/stdc++.h>
-#include <string.h>
-#define int long long
-#define MAX (int)(1e7 + 5)
-#define itn int
-#define inf 1e18
-#define MOD (int)(1e9 + 7)
-#define pb push_back
-#define all(x) x.begin(), x.end()
-#define sitr set<int>::iterator
-#define mitr map<int, int>::iterator
-#define pii pair<int, int>
-#define vii vector<pii>
-#define vi vector<int>
-#define vll vector<unsigned int>
-#define test  \
-    int t;    \
-    cin >> t; \
-    while (t--)
-#define fast                       \
-    ios_base ::sync_with_stdio(0); \
-    cin.tie(NULL);                 \
-    cout.tie(NULL)
-using namespace std;
 
-void __print(int x) { cerr << x; }
-void __print(float x) { cerr << x; }
-void __print(double x) { cerr << x; }
-void __print(long double x) { cerr << x; }
-void __print(char x) { cerr << '\'' << x << '\''; }
-void __print(const char *x) { cerr << '\"' << x << '\"'; }
-void __print(const string &x) { cerr << '\"' << x << '\"'; }
-void __print(bool x) { cerr << (x ? "true" : "false"); }
-
-template <typename T, typename V>
-void __print(const pair<T, V> &x)
-{
-    cerr << '{';
-    __print(x.first);
-    cerr << ',';
-    __print(x.second);
-    cerr << '}';
-}
-template <typename T>
-void __print(const T &x)
-{
-    int f = 0;
-    cerr << '{';
-    for (auto &i : x)
-        cerr << (f++ ? "," : ""), __print(i);
-    cerr << "}";
-}
-void _print() { cerr << "]\n"; }
-template <typename T, typename... V>
-void _print(T t, V... v)
-{
-    __print(t);
-    if (sizeof...(v))
-        cerr << ", ";
-    _print(v...);
-}
-#ifndef ONLINE_JUDGE
-#define see(x...)                 \
-    cerr << "[" << #x << "] = ["; \
-    _print(x)
-#else
-#define see(x...)
-#endif
-/*
-int a[(int)MAX];
-vi v;
-void sieve(int max = (int)1e7) {
-    for(int i=0;i<=max;i++) a[i] = 1;
-    a[0] = a[1] = 0;
-    for(int i=2;i<=(int)sqrt(max);i++) {
-        if(a[i] == 1) {
-            for(int j=i*i;j<=max;j+=i) a[j] = 0;
-            v.pb(i);
-        }
+ PUSHING STYLE==>
+   for(ll i=0;i<n;i++)
+    {
+        ll a;cin>>a;
+        tree[i+n]=a;
     }
-    for(int i=(int)sqrt(max)+1;i<=max;i++) {
-        if(a[i] == 1) v.pb(i);
+
+ll tree[2*MAX];ll n;
+
+
+REMEMBER TO CALL THE BUILD FUNCTION ...
+REMEMBER THE QUERY IS FOR [L,R) LEFT INCLUSIVE ,RIGHT EXCLUSIVE
+===========================================================================
+void build()
+{
+    for(ll i=n-1;i>0;i--)
+    {
+        
+        tree[i]=tree[i<<1] +  tree[i<<1|1];
+        
+                  //MODIFY THE SIGN AS PER NEED;
     }
 }
-
-int SPF[(int)MAX];
-void spf(int max = (int)1e7) {
-    for(int i=0;i<=max;i++) SPF[i] = 1;
-    SPF[0] = SPF[1] = 0;
-    for(int i=2;i<=sqrt(max);i++) {
-        if(SPF[i] == 1) {
-            for(int j = i;j<=max;j+=i) if(SPF[j] == 1) SPF[j] = i;
-        }
-    }
-    for(int i=sqrt(max)+1;i<=max;i++) if(SPF[i] == 1) SPF[i] = i;
-}
-*/
-
-//calculate factorial...
-//vi f(MAX); void fact(int max = (int)1e7){f[0] = 1, f[1] = 1;for (int i = 2; i <= max; i++)f[i] = (i * f[i - 1]) % MOD;}
-
-//int nCrMODm(int n, int r, int m = MOD){fact();if(r == 0) return 1; int x = f[n], y = f[n - r], z = f[r]; return (x * mod__inverse(y) % m * mod__inverse(z) % m + m) % m;}
-//int I_fpow(int x,int y,int p = MOD){int res = 1;x = x % p;while (y > 0){if (y & 1) res = (res * x) % p;y = y >> 1;x = (x * x) % p;} return res;}
-
-//int palindrome (string s){int x; if(!(s.length()%2)) x = s.length()/2 - 1; else x = s.length()/2; for(int i=0;i<=x;i++) {if(s[i] != s[s.length()-1-i]) return 0; } return 1; }
-//int palindrome (int n){int x;string s = tostring(n); if(!(s.length()%2)) x = s.length()/2 - 1; else x = s.length()/2; for(int i=0;i<=x;i++) {if(s[i] != s[s.length()-1-i]) return 0; } return 1; }
-//int toint(const string &s) {stringstream ss; ss << s; int x; ss >> x; return x;}
-//string tostring ( int number ){stringstream ss; ss<< number; return ss.str();}
-// Addition of 2 strings ... based on the addition performed with the help of carry.
-//string add2strings(string s1,string s2){if(s1.length()>s2.length())swap(s1,s2);int n = s1.length();int m = s2.length();int carry = 0;reverse(all(s1));reverse(all(s2));string ans = "";for(int i=0;i<n;i++){int sum = (char)(s1[i]-'0')+(char)(s2[i]-'0')+carry;ans += (char)(sum%10 + '0');carry = sum/10;}for(int i=n;i<m;i++){int sum = (char)(s2[i]-'0')+carry;ans += (char)(sum%10 + '0');carry = sum/10;}if(carry)ans += (char)(carry+'0');reverse(all(ans));return ans;}
-
-//key to euclids extended --> gcd(a,b) = gcd(b,a%b)
-//also a%b = a-(a/b)*b;
-//hence ax+by = bx1+(a%b)y1.. ax+by = bx1+(ay1-(a/b)*by1)..
-//comparing x = y1;
-//y = x1-(a/b)*y1
-//void extendedEuclid(int a,int b,int &x,int &y){int res;if(b == 0){res = a;x = 1;y = 0;}else{extendedEuclid(b,a%b,x,y);int t = x;x = y;y = t - (a/b)*x;}}
-
-//if m is prime fermats little theorem can be used
-//int modInverse(int a,int m){return I_fpow(a,m-2);}
-
-//if not
-//In extendedGCD x is the mod mult inverse of a under b and y is the mod mult inverse of b under a
-//Inverse exist if a,m is co-prime
-//int mod__Inverse(int a,int m){int x,y;extendedEuclid(a,m,x,y); return (x%m+m)%m;}
-
-map<int,vi> tree;
-vi vis(MAX);
-vi subtreesize(MAX);
-
-int dfs(int n) {
-    vis[n] = 1;
-    int currsize = 1;
-
-    for(int i : tree[n]) {
-        if(!vis[i]) {
-            currsize += dfs(i);
-        }
-    }
-    subtreesize[n] = currsize;
-    return subtreesize[n];
-}
-signed main() 
+void modify(ll val ,ll pos)
 {
-    fast;
-    int n;
-    cin>>n;
     
-    int g = n - 1;
-    while(g--) {
-        int x,y;
-        cin>>x>>y;
-        tree[x].pb(y);
-        tree[y].pb(x);
+    for(tree[pos+=n]=val;pos>1;pos>>=1)
+    {
+        tree[pos>>1]=tree[pos]  +   tree[pos^1];
+                            //MODIFY THE SIGN AS PER NEED;
     }
-
-    dfs(1);
-    see(subtreesize);
-    return 0; 
 }
+ll query(ll l,ll r)
+{
+// for querying [1,2]use 0,2 
+    ll res=0;
+    for(l+=n,r+=n;l<r;l>>=1,r>>=1)
+    {
+        if(l&1)res+=tree[l++];
+        if(r&1)res+=tree[--r];
+    }
+    return res;
+}
+================================================================================
+LAZY PROPAGATION IN SEGMENT TREES , RANGE UPDATE AND RANGE QUERY
+ARRAY OF NODES IS DECLARED OF SIZE 4*N AS N ELEMENT ,N-1 IN TOTAL ELEMENT ABOVE IT AS IF N=4,SO 1,2,WILL BE THEIR
+   1
+ 2   3
+4 5 6 7
+ABOVE 1,2,3 REQUIRED THE N-1 AND AFTER THAT FOR PROPAGATING PURPOSE ,AS WE WANT TO KEEP THE ALGORITHM GENERALIZE SO WE ADD ANOTHER 
+EG. 
+			1
+		   2	    3
+	       4    5   6	  7
+          8  9  10   11   12  13  14  15
+THE NUMBERS FROM 8-15 DONT CONRTIBUTE IN ANYTHING ....BUT HERE 2*N MORE ELEMENTS ARE REQUIRED
+
+REMEMBER UNLIKE THE ABOVE SEGMENT TREE THE QUERY IS  UPDATE[..,L,R,..] L INCLUSIVE AND R INCLUSIVE .
+================================================================================
+struct node{
+    ll val,laze;
+    node()
+    {
+        val=laze=0;
+    }
+};
+ll pos[MAX];
+node tree[4*MAX];
+//WHAT BUILD DOES IN THE BELOW CODE IS THAT WE PASS BUILD THE PARAMETER BUILD(1,1,END);...
+//NOTE THAT HERE U HAVE TO STORE ARRAYS IN 1 INDEXING AND SUPPOSE U HAVE TO ALLOCATE THE VALUES TO THE NODES WHICH CONTAIN INFORMATION OF ONE NODE ,SO THEIR L==R ,BUT HOW TO GET THE INDEX WHERE SUCH NODES ARE PRESENT SO WE PASS 1,SO IF WE GO TO LEFT AND RIGHT CHILD WE GET THE NUMBER... AND THEN STORE THE VALUE
+
+// call build(1,1,n) in main()...
+// in lazy propagation -> numbering starts from 1, so for quay provide original numbers not subtracted by 1..
+void build(ll num,ll l ,ll r)
+{
+
+    if(l==r)
+    {
+        tree[num].val = //YOUR ARRAY VALUE...;
+	return;
+    }
+    ll mid = l+r>>1;
+    build(num<<1,l,mid);
+    build(num<<1|1,mid+1,r);
+    push_up(num,l,r);
+}
+void  go(ll l,ll r,ll i,ll val,ll x)
+{
+// here val,and x are added to val and laze ,such that ,tree[I].val gets the equivalent addition on values considering l,r range and val->value and x->value..
+
+    
+    tree[i].val += (r-l+1)*val+((r*(r+1))/2 -((l)*(l-1))/2)*x;
+    tree[i].laze += val;
+    tree[i].is += x;
+}
+void push_down(ll pos,ll l,ll r)
+{
+    ll mid =l+r>>1;
+    go(l,mid,pos<<1,tree[pos].laze,tree[pos].is);
+    go(mid+1,r,pos<<1|1,tree[pos].laze,tree[pos].is);
+    tree[pos].laze =0;
+    tree[pos].is =0;
+}
+ 
+void push_up(ll pos,ll l,ll r)
+{
+//L AND R ARE NOT OF ANY USE HERE..
+// USED WHEN U HAVE PROPAGATED THE VALUE SO U HAVE TO UPDATE THIS NODE WITH CORRESPONDING TO ITS CHILD...
+    tree[pos].val=tree[pos<<1].val+tree[pos<<1 |1].val;
+       // INSTEAD OF MAX YOU CAN DO ANY OPERATION AS YOU WISH BUT ACCORDINGLY WHAT WILL BE OPERATED IS TO HANDLED
+}
+ll sum(ll v, ll tl, ll tr, ll l, ll r) {
+// pass as query(1,1,n,range_left,range_right )range_left,right pass as it is ,don't subtract 1 from it,  
+  if (l > r)
+        return 0;
+    if (l <= tl && r >= tr) {
+        return tree[v].val;
+    }
+    int tm = (tl + tr) / 2;
+ push_down(v<<1,tl,tl+tr>>1);
+    push_down(v<<1|1,(tl+tr>>1)+1,tr);
+//here tl and tr are the ranges which are cutting from 1,n as u proceed...
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+//note here min(r,tm) and similarly max(..,..) is used and l>r is used to eliminate the unrequited part...
+}
+void update(ll pos,ll l ,ll r,ll L,ll R,ll val)
+{
+//HOW TO USE: IN MOST OF THE CASES WE PASS FIRST THREE PARAMETERS:posl,R AS 1,1,R(YOUR END)...L AND R IS THE RANGE U HAVE TO UPDATE WITH VALUE VAL AS THE UPDATE FUNCTION ONLY UPDATES THE NODES WHICH LIE IN INTERVAL... 
+    if(L<=l && R>=r)
+    {
+        tree[pos].laze+=val;
+        tree[pos].val+=val;
+        return;
+    }
+    push_down(pos,l,r);
+    //PROPAGATING THE LAZE OTHER THAN VAL IF  PRESENT IN THE POS ,SO ITS GETS PROPAGATED IN THE CHILDREN
+
+
+    ll mid=(l+r)>>1;
+    if(L<=mid)update(pos<<1,l,mid,L,R,val);
+    if(mid<R)update( pos<<1 | 1,mid+1,r,L,R,val);
+    push_up(pos,l,r);
+}
+
+// we pass 1,n as our range and L,R are the range where certain operation is to be done , so our 1,n range gets short listed as we go on and see whether our current range lies in the given range or not...thats why is sum(queries ) we check from 1,n if not then we first propagate our laziness so that no laziness is pending from this node, we push_down it and then again check for those two ranges which we get by seperating it from mid...
+
+
+PRACTISE PROBLEM:https://cses.fi/problemset/result/653626/
+
+
+//question on segment tree with lazy progation https://cses.fi/problemset/result/629426/========================================================================================================================
+
+PRACTISE PROBLEM: https://codeforces.com/problemset/problem/1320/C
+========================================================================================================================
+Offline queries with segment tree ==>https://cses.fi/problemset/result/637091/
